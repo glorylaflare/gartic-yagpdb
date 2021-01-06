@@ -9,7 +9,7 @@
 }}
 {{ $yag := userArg 204255221017214977 }}
 {{deleteTrigger 0}}
-{{ $args := parseArgs 1 "" (carg "string" "user") }}
+{{ $args := parseArgs 1 "" (carg "userid" "user") }}
 {{ $userA := $yag }}
 {{ $userB := .User }}
 {{ $cc := toInt .CCID }}
