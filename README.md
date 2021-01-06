@@ -11,4 +11,4 @@ Não sou nenhum profissional em programação, e não mexo com isso diariamente,
 
 Todos os comandos criados são de uso interno do servidor do oficial Gartic, caso queira utilizar em seu servidor, você deverá mudar algumas ou várias configurações para adaptar o mesmo ao seu servidor, como ID de canais, membros e afins..
 
-Infos golang https://golang.org/
+Infos golang em https://golang.org/
