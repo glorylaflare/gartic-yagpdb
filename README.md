@@ -2,11 +2,7 @@
 
 A maioria dos comandos foram criados por mim, alguns com forte inspiração em outros códigos que peguei da internet
 em bibliotecas abertas do Yagpdb, todos os créditos para ambos.
-<<<<<<< HEAD
-https://github.com/Jo3-L/yagpdb-cc/  
-=======
 https://github.com/Jo3-L/yagpdb-cc/ e 
->>>>>>> c8de0abdad9385a2c423e74d413a97d0f6dfd5c6
 https://github.com/TheHDCrafter/yagpdb-cc/
 
 Meu grande arquivo de referência é esse através do próprio site do Yagpdb pelos templates https://docs.yagpdb.xyz/reference/templates, foi o que mais me ajudou a evoluir e entender melhor cada função do bot.
