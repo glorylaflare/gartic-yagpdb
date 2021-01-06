@@ -1,4 +1,4 @@
-# Comandos criados por GloryLaFlare, usando a golang
+# Comandos criados por GloryLaFlare usando a golang...
 
 A maioria dos comandos foram criados por mim, alguns com forte inspiração em outros códigos que peguei da internet
 em bibliotecas abertas do Yagpdb, todos os créditos para ambos.
