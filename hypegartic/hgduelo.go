@@ -1,4 +1,23 @@
-{{ $listimg := cslice "https://cdn.discordapp.com/attachments/785487026194874378/792876662844948490/ezgif-6-50b72935ebe2.gif" "https://cdn.discordapp.com/attachments/785487026194874378/792876666098810941/ezgif-6-3897718c4c56.gif" "https://cdn.discordapp.com/attachments/785487026194874378/792876666405519400/ezgif-6-124fd3ba0c22.gif" "https://cdn.discordapp.com/attachments/785487026194874378/792876669185556530/ezgif-6-c593a5e05b74.gif" "https://cdn.discordapp.com/attachments/785487026194874378/791668333887881266/259772c2b758c85f70c8910b9093f3ef.gif"}}
+{{ $listimg := cslice "https://i.ibb.co/mBqRGdm/1.gif"
+"https://i.ibb.co/bXvcP2D/2.gif"
+"https://i.ibb.co/4FR1MMp/3.gif"
+"https://i.ibb.co/7ys6ST2/4.gif"
+"https://i.ibb.co/fvKF5d2/5.gif"
+"https://i.ibb.co/Fw1DqXk/6.gif"
+"https://i.ibb.co/dBFw0gX/7.gif"
+"https://i.ibb.co/JqpL9VJ/8.gif"
+"https://i.ibb.co/DpM9Cv6/9.gif"
+"https://i.ibb.co/BfqwCJn/10.gif"
+"https://i.ibb.co/vwtWJny/11.gif"
+"https://i.ibb.co/DLGCxym/12.gif"
+"https://i.ibb.co/8ckb0zG/13.gif"
+"https://i.ibb.co/xjZY0Rb/14.gif"
+"https://i.ibb.co/9VQftRR/15.gif"
+"https://i.ibb.co/gRRGzhK/16.gif"
+"https://i.ibb.co/Zm49p10/17.gif"
+"https://i.ibb.co/gTqYTgL/18.gif"
+"https://i.ibb.co/LgPmpRR/19.gif"
+"https://i.ibb.co/WfmRV82/20.gif"}}
 {{ $rimg := (index (shuffle $listimg) 0)}}
 
 {{ $channels := cslice 745296029406199819 487385659137458176 790922403660038184 791341526528557096 }}
