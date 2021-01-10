@@ -23,8 +23,8 @@
 {{ $channels := cslice 745296029406199819 487385659137458176 790922403660038184 791341526528557096 }}
 {{ $winchannel := 789276291425370132 }}
 {{ $emojis := sdict
-	"UserA" "<:GD:794932519186595860>"
-	"UserB" "<:GE:794932518994313267>"
+	"UserA" "<:LD:797936075447992341>"
+	"UserB" "<:LA:797936075867160616>"
 }}
 {{ $yag := userArg 204255221017214977 }}
 {{deleteTrigger 0}}
@@ -40,7 +40,7 @@
 {{else if ne $userB.ID $userA.ID}}
 
 {{ $embed := sdict 
-	"author" (sdict "name" "CLUBE DA LUTA" "url" "" "icon_url" "https://media.discordapp.net/attachments/785487026194874378/795238837952446474/MW.png") 
+	"author" (sdict "name" "CLUBE DA LUTA" "url" "" "icon_url" "https://media.discordapp.net/attachments/785487026194874378/797936801192476682/D.png?width=473&height=473") 
 	"description" "*O duelo começa em 3...*"
 	"color" 3092790
 	"fields" (cslice
@@ -90,7 +90,7 @@
 	{{ $data.Set .Target $target }}
 
 	{{ if not $target.HP }}
-		{{ $msgs = $msgs.Append (printf "<:GW:795225405875159070> **%s** venceu!" $attacker.Name) }}
+		{{ $msgs = $msgs.Append (printf "<:WD:797936075363844186> **%s** venceu!" $attacker.Name) }}
 		{{ if eq $attacker.ID $userB.ID}}
 		{{ $s := dbIncr $attacker.ID "exp" 10 }}
 		{{ $wembed := cembed
@@ -141,7 +141,7 @@
 {{ $msgCDC := sendMessageNoEscapeRetID $winchannel $CDCembed }}
 {{ deleteMessage nil $msgCDC 10 }}
 {{else}}
-{{dbSetExpire .User.ID "cooldownduel" "timer" 900}}
+{{dbSetExpire .User.ID "cooldownduel" "timer" 600}}
 
 	{{ $initial := sendMessageRetID nil (cembed $embed) }}
 	{{ sleep 3 }}
