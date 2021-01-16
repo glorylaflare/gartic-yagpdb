@@ -19,12 +19,14 @@
 		}} 
 	{{ end }}
 
-{{ $txt := (print "Você possui: **" $uxp "** pontos de experiência\nConfira o ranking completo abaixo:")}}
 {{ $author := (.Message.Author).Mention }}
 {{ $TOPembed := cembed
 		"title" ":trophy: Ranking de experiência do HypeGartic"
-		"color" 2734482
-		"description" (print $txt "\n" $display)
+		"color" 15321644
+		"fields" (cslice
+			(sdict "name" "Seu nível de exp." "value" (print $uxp " de exp.") "inline" false)
+			(sdict "name" "Geral" "value" (print $display) "inline" false)
+		)
 		"image" (sdict "url" "https://media.discordapp.net/attachments/764241961154117722/787015437736869908/garticlogo.png")
 		"footer" (sdict "text" (joinStr "" "Página " $page " • Digite hg.rank <página> para ir a próxima página."))
 	}}

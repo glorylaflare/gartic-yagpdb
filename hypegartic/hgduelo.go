@@ -36,7 +36,7 @@
 {{ if $args.IsSet 0 }} {{ $userA = userArg ($args.Get 0) }} {{ end }}
 
 {{if eq $userB.ID $userA.ID}}
-:clown: | {{(.Message.Author).Mention}} não pode dar duelar com você mesmo(a), engraçadinho(a)...!
+:clown: | {{(.Message.Author).Mention}} não pode duelar com você mesmo(a), engraçadinho(a)...!
 {{else if ne $userB.ID $userA.ID}}
 
 {{ $embed := sdict 
@@ -90,11 +90,16 @@
 	{{ $data.Set .Target $target }}
 
 	{{ if not $target.HP }}
+		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro no chão e ganhou **10** pontos de experiência."}}
+		{{ $wtext := (index (shuffle $xtxt) 0)}}
 		{{ $msgs = $msgs.Append (printf "<:WD:797936075363844186> **%s** venceu!" $attacker.Name) }}
 		{{ if eq $attacker.ID $userB.ID}}
 		{{ $s := dbIncr $attacker.ID "exp" 10 }}
 		{{ $wembed := cembed
-		"description" (print ":star_struck: | <@" $attacker.ID "> ganhou **10** pontos de experiência.")
+		"description" (printf $wtext 
+			$attacker.ID
+			$target.ID
+		)
 		"color" 3092790
 		}}
 		{{ sendMessage $winchannel $wembed }}
@@ -106,11 +111,16 @@
 			{{ else if gt $nxp 0}}
 			{{ $sxp := dbSet $target.ID "exp" $nxp }}
 			{{end}}
-		{{ $wembed := cembed
-		"description" (print ":smiling_face_with_tear: | <@" $target.ID "> perdeu **5** pontos de experiência.")
+		{{ $ytxt := cslice ":smiling_face_with_tear: | Parece que <@%d> não treinou o suficiente para bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> falhou miseravelmente ao tentar bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> não aguentou a pressão contra <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> caiu que nem bosta para <@%d> e perdeu **5** pontos de experiência."}}
+		{{ $ltext := (index (shuffle $ytxt) 0)}}
+		{{ $lembed := cembed
+		"description" (printf $ltext 
+			$target.ID
+			$attacker.ID
+		)
 		"color" 3092790
 		}}
-		{{ sendMessage $winchannel $wembed }}
+		{{ sendMessage $winchannel $lembed }}
 		{{end}}
 	{{ end }}
 	{{ if gt (len $msgs) 3 }}
@@ -135,13 +145,13 @@
 
 {{ if $cooldown := (dbGet .User.ID "cooldownduel") }}
 {{ $CDCembed := cembed
-"description" (print ":deaf_man_tone1: | " (.Message.Author).Mention ", você me parece cansado, espera **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** para duelar novamente!")
+"description" (print "<:gtcCansado:758029851281195168> | " (.Message.Author).Mention ", você me parece cansado, espera **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** para duelar novamente!")
 "color" 3092790
 }} 
 {{ $msgCDC := sendMessageNoEscapeRetID $winchannel $CDCembed }}
 {{ deleteMessage nil $msgCDC 10 }}
 {{else}}
-{{dbSetExpire .User.ID "cooldownduel" "timer" 600}}
+{{dbSetExpire .User.ID "cooldownduel" "timer" 500}}
 
 	{{ $initial := sendMessageRetID nil (cembed $embed) }}
 	{{ sleep 3 }}
