@@ -1,4 +1,4 @@
-{{ $Channel := 780191143962869780 }}
+{{ $Channel := 799419168297451524 }}
 
 {{$embed:= sdict}}
 {{if gt (len .Args) 0}}
