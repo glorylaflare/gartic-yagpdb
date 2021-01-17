@@ -34,6 +34,7 @@
 "fields" (cslice 
 	(sdict "name" "Meta: (sem elo) - 100 pontos" "value" "> **:euro: Valendo 500 garticos**\n> <:xp:795263615228837888> **Valendo 15 de exp**\n> Cargo: **<@&788161480067514368>**" "inline" true) 
 	(sdict "name" "Meta: Bronze 1 - 200 pontos" "value" "> **:euro: Valendo 1400 garticos**\n> <:xp:795263615228837888> **Valendo 20 de exp**\n> Cargo: **<@&788161715798933504>**" "inline" true)
+	(sdict "name" "Meta: Bronze 2 - 200 pontos" "value" "> **:euro: Valendo 1400 garticos**\n> <:xp:795263615228837888> **Valendo 20 de exp**\n> Cargo: **<@&788161863753662515>**" "inline" false)
 )
 }}
 {{sendMessage $chx $Tembed}}
