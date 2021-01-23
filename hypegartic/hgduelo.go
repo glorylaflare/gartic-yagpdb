@@ -28,16 +28,12 @@
 }}
 {{ $yag := userArg 204255221017214977 }}
 {{deleteTrigger 0}}
-{{ $args := parseArgs 1 "" (carg "userid" "user") }}
+{{ $args := parseArgs 0 "" (carg "userid" "user") }}
 {{ $userA := $yag }}
 {{ $userB := .User }}
 {{ $cc := toInt .CCID }}
 
-{{ if $args.IsSet 0 }} {{ $userA = userArg ($args.Get 0) }} {{ end }}
-
-{{if eq $userB.ID $userA.ID}}
-:clown: | {{(.Message.Author).Mention}} não pode duelar com você mesmo(a), engraçadinho(a)...!
-{{else if ne $userB.ID $userA.ID}}
+{{if $args.IsSet 0}} {{ $userA = userArg ($args.Get 0) }} {{end}}
 
 {{ $embed := sdict 
 	"author" (sdict "name" "CLUBE DA LUTA" "url" "" "icon_url" "https://media.discordapp.net/attachments/785487026194874378/797936801192476682/D.png?width=473&height=473") 
@@ -90,9 +86,9 @@
 	{{ $data.Set .Target $target }}
 
 	{{ if not $target.HP }}
-		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro(a) no chão e ganhou **10** pontos de experiência."}}
+		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro no chão e ganhou **15** pontos de experiência."}}
 		{{ $wtext := (index (shuffle $xtxt) 0)}}
-		{{ $msgs = $msgs.Append (printf "<:WD:797936075363844186> **%s** venceu!" $attacker.Name) }}
+				{{ $msgs = $msgs.Append (printf "<:WD:797936075363844186> **%s** venceu!" $attacker.Name) }}
 		{{ if eq $attacker.ID $userB.ID}}
 		{{ $s := dbIncr $attacker.ID "exp" 15 }}
 		{{ $wembed := cembed
@@ -102,7 +98,7 @@
 		)
 		"color" 3092790
 		}}
-		{{ sendMessage $winchannel $wembed }}
+		{{ sendMessage $winchannel (complexMessage "content" (print "<@" $target.ID ">") "embed" $wembed) }}
 		{{ else if ne $attacker.ID $userB.ID}}
 		{{ $gxp := (dbGet $target.ID "exp").Value }}
 		{{ $nxp := toInt (sub $gxp 5)}}
@@ -111,7 +107,7 @@
 			{{ else if gt $nxp 0}}
 			{{ $sxp := dbSet $target.ID "exp" $nxp }}
 			{{end}}
-		{{ $ytxt := cslice ":smiling_face_with_tear: | Parece que <@%d> não treinou o suficiente para bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> falhou miseravelmente ao tentar bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> não aguentou a pressão contra <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> caiu que nem bosta para <@%d> e perdeu **5** pontos de experiência."}}
+		{{ $ytxt := cslice ":smiling_face_with_tear: | Parece que o(a) <@%d> não treinou o suficiente para bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> falhou miseravelmente ao tentar bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> não aguentou a pressão contra <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> caiu que nem bosta para <@%d> e perdeu **5** pontos de experiência."}}
 		{{ $ltext := (index (shuffle $ytxt) 0)}}
 		{{ $lembed := cembed
 		"description" (printf $ltext 
@@ -120,7 +116,7 @@
 		)
 		"color" 3092790
 		}}
-		{{ sendMessage $winchannel $lembed }}
+		{{ sendMessage $winchannel (complexMessage "content" (print "<@" $attacker.ID ">") "embed" $lembed) }}
 		{{end}}
 	{{ end }}
 	{{ if gt (len $msgs) 3 }}
