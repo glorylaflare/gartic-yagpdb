@@ -44,7 +44,6 @@
 	"author" (sdict "name" "Ajuda denuncia!" "url" "" "icon_url" ("https://cdn.discordapp.com/attachments/746460699034910913/800487099907309598/warning.png"))
 	"footer" (sdict "text" (.User.String) "icon_url" (.User.AvatarURL "512"))
 }}
-{{deleteTrigger 0}}
 {{ $id := (sendMessageRetID nil $embed) }} 
 {{ deleteMessage nil $id 60 }}
 	{{else}}
@@ -52,4 +51,5 @@ Insira o motivo da sua denúncia. Digite `-d <motivo>` para sua denúncia ser en
 Confira as intruções gerais sobre o comando digitando `-d` no canal <#487298414753873920>.
 {{deleteResponse 30}}
 {{end}}
+{{deleteTrigger 0}}
 {{end}}

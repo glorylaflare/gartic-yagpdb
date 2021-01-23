@@ -28,14 +28,14 @@
 "description" (joinStr "" "<:ck:786958781790814278> | " (.Message.Author).Mention " foi humilde e deu **" $ck "** biscoito de leite para " $user.Mention )
 "color" 3092790
 }} 
-{{ sendMessageNoEscape nil $CKembed }}
+{{ sendMessageNoEscape nil (complexMessage "content" (print "<@" $user.ID ">") "embed" $CKembed) }}
 {{- else if gt $rand 93}}
 {{ $s := dbIncr $user.ID "rep" $cck }} 	
 {{ $CCKembed := cembed
 "description" (joinStr "" "<:cck:800037172912193606> | " (.Message.Author).Mention " foi muito generoso(a) e deu **" $cck "** biscoitos de chocolate para " $user.Mention )
 "color" 3092790
 }} 
-{{ sendMessageNoEscape nil $CCKembed }}
+{{ sendMessageNoEscape nil (complexMessage "content" (print "<@" $user.ID ">") "embed" $CCKembed) }}
 {{- end}}
 {{end}}
 {{end}}

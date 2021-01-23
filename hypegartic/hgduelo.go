@@ -90,11 +90,11 @@
 	{{ $data.Set .Target $target }}
 
 	{{ if not $target.HP }}
-		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro no chão e ganhou **10** pontos de experiência."}}
+		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **10** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro(a) no chão e ganhou **10** pontos de experiência."}}
 		{{ $wtext := (index (shuffle $xtxt) 0)}}
 		{{ $msgs = $msgs.Append (printf "<:WD:797936075363844186> **%s** venceu!" $attacker.Name) }}
 		{{ if eq $attacker.ID $userB.ID}}
-		{{ $s := dbIncr $attacker.ID "exp" 10 }}
+		{{ $s := dbIncr $attacker.ID "exp" 15 }}
 		{{ $wembed := cembed
 		"description" (printf $wtext 
 			$attacker.ID
@@ -143,6 +143,14 @@
 
 {{ else }}
 
+{{- if $args.IsSet 0}} 
+{{ $userA = userArg ($args.Get 0) }} 
+
+{{if eq $userB.ID $userA.ID}}
+:clown: | {{(.Message.Author).Mention}} não pode duelar com você mesmo(a), engraçadinho(a)...!
+{{deleteResponse 10}}
+{{else}}
+
 {{ if $cooldown := (dbGet .User.ID "cooldownduel") }}
 {{ $CDCembed := cembed
 "description" (print "<:gtcCansado:758029851281195168> | " (.Message.Author).Mention ", você me parece cansado, espera **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** para duelar novamente!")
@@ -165,6 +173,20 @@
 		"IsFirst" true
 		"ChannelID" .Channel.ID
 	) }}
+
 {{ end }}
 {{ end }}
-{{ end }}
+{{ else }}
+{{ if $cooldown := (dbGet .User.ID "cooldownduel")}}
+{{ $CDCembed := cembed
+	"description" (print "<:gtcCansado:758029851281195168> | " (.Message.Author).Mention ", você me parece cansado, espera **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** para duelar novamente!")
+	"color" 3092790
+}} 
+{{ $msgCDC := sendMessageNoEscapeRetID nil $CDCembed }}
+{{ deleteMessage nil $msgCDC 10 }}
+{{else}}
+:man_facepalming_tone1: | O jeito certo de utilizar o comando é **hg.duelo <user>** querido(a)!
+{{ deleteResponse 10 }}
+{{end}}
+{{- end}}
+{{end}}
