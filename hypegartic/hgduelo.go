@@ -155,7 +155,7 @@
 {{ $msgCDC := sendMessageNoEscapeRetID $winchannel $CDCembed }}
 {{ deleteMessage nil $msgCDC 10 }}
 {{else}}
-{{dbSetExpire .User.ID "cooldownduel" "timer" 500}}
+{{dbSetExpire .User.ID "cooldownduel" "timer" 600}}
 
 	{{ $initial := sendMessageRetID nil (cembed $embed) }}
 	{{ sleep 3 }}

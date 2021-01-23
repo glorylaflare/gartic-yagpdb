@@ -1,7 +1,7 @@
 {{$p:= toInt (dbGet .User.ID "mathpoint").Value}}
 {{$r:= sub 9 $p}}
 {{$accembed := sdict
-	"description" (print "Obrigada " .User.Mention ", você é incrível, seu lindo(a)! Minha mãe disse que a resposta está **correta**, já posso entregar a atividade na escola! Você sabia que com mais `" $r " acerto(s)` você aumenta sua experiência em 30 pontos? Me ajuda novamente? Pufavozinho?")
+	"description" (print "Obrigada " .User.Mention ", você é incrível, lindo(a)! Minha mãe disse que a resposta está **correta**, já posso entregar a atividade na escola! Você sabia que com mais `" $r " acerto(s)` você aumenta sua experiência em 30 pontos? Me ajuda novamente? Pufavozinho?")
 	"color" 3092790
 	"thumbnail" (sdict "url" "https://media.discordapp.net/attachments/785487026194874378/802148358093144074/giphy_3.gif")
 }}
@@ -10,6 +10,16 @@
 
 {{$args := parseArgs 0 "" (carg "string" "math")}}
 {{- if $args.IsSet 0}}
+
+{{if $cooldown:= (dbGet .User.ID "cooldownmath")}}
+{{$CDCembed := cembed
+"description" (print "<:gtcCansado:758029851281195168> | " (.Message.Author).Mention ", você me parece cansado, espera **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** para me ajudar novamente!")
+"color" 3092790
+}} 
+{{$msgCDC := sendMessageRetID nil $CDCembed}}
+{{deleteMessage nil $msgCDC 10}}
+{{else}}
+
 {{$x:= ($args.Get 0)}}
 {{$randA:= randInt 1 999}}
 {{$randB:= randInt 1 999}}
@@ -26,6 +36,7 @@
 		{{if eq $p 9}}
 			{{$b:= dbIncr .User.ID "exp" 30}}
 			{{$k:= dbSet .User.ID "mathpoint" 0}}
+			{{dbSetExpire .User.ID "cooldownmath" "timer" 600}}
 		{{end}}	
 	{{else}}
 	{{$cooldown:= dbGet .User.ID "math"}}
@@ -104,8 +115,8 @@
 {{deleteMessage nil $id 15}}	
 	{{end}}
 {{execCC .CCID nil 1 "0"}}
+{{end}}	
 {{end}}
-
 {{- else}}
 	{{$b:= (dbGet .User.ID "math").Value}}
 	{{if eq (toInt $b) 0}}
@@ -119,5 +130,5 @@
 	}}
 	{{sendMessage nil (complexMessage "content" .User.Mention "embed" $mainembed)}}
 	{{else}}
-	{{end}}	
+	{{end}}
 {{end}}
