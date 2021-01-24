@@ -2,8 +2,7 @@
 
 Bem-vindos a minha biblioteca totalmente em PT-BR do YAGPDB, uma lista de comandos que foram criados por mim, e outros com forte inspiração em alguns códigos que peguei da internet em bibliotecas abertas do YAGPDB, no qual deixarei todos os créditos para ambos.
 
-[Jo3-L](https://github.com/Jo3-L/yagpdb-cc/)
-[TheHDCrafter](https://github.com/TheHDCrafter/yagpdb-cc/)
+[Jo3-L](https://github.com/Jo3-L/yagpdb-cc/) e [TheHDCrafter](https://github.com/TheHDCrafter/yagpdb-cc/)
 
 Meu grande arquivo de referência é através da própria biblioteca do YAGPDB pelos [templates](https://docs.yagpdb.xyz/reference/templates), é ele que me ajudou a evoluir e entender melhor cada função do bot, além do fato de eu já ser familiarizado com o discord.js.
 
