@@ -1,3 +1,12 @@
+{{/*
+	Comando que registra os membros que completaram o desafio semanal 3, além de adicionar exp. e troca de cargos entre os elos do Hypegartic
+ 
+	Modo de usar: "-ds3 @user"
+ 
+	Trigger recomendado: "ds3"
+	Trigger type: Command
+*/}}
+
 {{ $cx := 745043718704201889 }}
 {{ $ch := 788165603034660904 }}
 

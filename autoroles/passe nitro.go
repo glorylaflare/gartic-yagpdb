@@ -1,3 +1,14 @@
+{{/*
+	Comando para adicionar passe nitro a um membro 
+ 
+	Modo de usar: "-passe @user/id"
+ 
+	Trigger recomendado: "passe"
+	Trigger type: Command
+
+	Observação: Esse comando é bem antigo, e eu nunca reformulei ele da forma como eu gostaria (o antigo era bem mais amador), ainda é bem limitado e existem formas melhores de se utilizar ele, porém eu fiz de uma forma mais simples e objetiva.
+*/}}
+
 {{if gt (len .Args) 1 }}
 	{{if (targetHasRoleID .User.ID 663430710484402217) }} 
 {{joinStr "" ":thinking: **|** " .User.Mention " você já usou o **Passe Nitro**, espere seu primeiro passe expirar para usar novamente."}}

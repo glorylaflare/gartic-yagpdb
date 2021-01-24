@@ -1,3 +1,12 @@
+{{/*
+	Comando que registra os membros que completaram o desafio semanal 2 
+ 
+	Modo de usar: "-ds2 @user"
+ 
+	Trigger recomendado: "ds2"
+	Trigger type: Command
+*/}}
+
 {{ $channel := 745043718704201889 }}
 
 {{$args := parseArgs 1 ""

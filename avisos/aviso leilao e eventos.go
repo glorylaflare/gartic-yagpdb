@@ -1,3 +1,13 @@
+{{/*
+	# ESSE COMANDO NÃO FAZ MAIS PARTE DO SERVIDOR DO GARTIC, PORÉM FUNCIONA PERFEITAMENTE
+
+	Comando que envia mensagens a cada intervalo de tempo para avisar sobre Leilões e Eventos 
+ 	
+	Trigger type: Hourly interval
+	Interval: 1
+	Channel: Qualquer um da sua escolha, pois o bot faz um sorteio para enviar a mensagens nos canais selecionados no $listCh
+*/}}
+
 {{$listCh:= cslice 456915295940902953 788996947423920128 788997005523288135 788997044650901518 768988994586279936}}
 {{$pollCh:=(index (shuffle $listCh) 0)}}
 

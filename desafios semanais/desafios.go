@@ -1,3 +1,12 @@
+{{/*
+	Comando para gerar os desafios semanais de maneira aleatória usando sorteios do próprio YAGPDB 
+ 
+	Modo de usar: "-dsf <data>"
+ 
+	Trigger recomendado: "dsf"
+	Tipo de trigger: Command
+*/}}
+
 {{$chx:=745046180374773860}}
 {{$listpt:= cslice 235 210 195}}
 {{$x := (index (shuffle $listpt) 0)}}
