@@ -24,6 +24,9 @@
 {{$x:= ($args.Get 0)}}
 {{$randA:= randInt 1 999}}
 {{$randB:= randInt 1 999}}
+{{$randC:= randInt 1 99}}
+{{$randD:= randInt 1 99}}
+{{$randE:= randInt 1 9999}}
 
 {{if not .ExecData}}
 	{{if (dbGet .User.ID "math")}}
@@ -86,10 +89,10 @@
 {{execCC .CCID nil 1 "0"}}
 
 {{else if eq $x "mult"}}
-{{$c:= mult $randA $randB}}
+{{$c:= mult $randC $randD}}
 {{dbSetExpire .User.ID "math" $c 15}}
 {{$multembed := cembed
-	"description" (print "**Qual o resultado da operação " $randA " × " $randB "?**\n\nIsso me parece grego " .User.Mention ", socorro! É muito difícil, será que você consegue resolver? Me ajuda, não sei o que fazer! Você tem 15 segundos para enviar **hg.mat <resposta>**.")
+	"description" (print "**Qual o resultado da operação " $randC " × " $randD "?**\n\nIsso me parece grego " .User.Mention ", socorro! É muito difícil, será que você consegue resolver? Me ajuda, não sei o que fazer! Você tem 15 segundos para enviar **hg.mat <resposta>**.")
 	"color" 3092790
 	"thumbnail" (sdict "url" "https://media.discordapp.net/attachments/785487026194874378/802148359678066699/giphy.gif")
 }}
@@ -98,23 +101,15 @@
 {{execCC .CCID nil 1 "0"}}
 
 {{else if eq $x "div"}}
+{{$c:= round (div $randE $randC)}}
+{{dbSetExpire .User.ID "math" $c 15}}
 {{$divembed := sdict
+	"description" (print "**Qual o resultado da operação " $randE " ÷ " $randC "?**\n\nIsso me parece grego " .User.Mention ", socorro! É muito difícil, será que você consegue resolver? Me ajuda, não sei o que fazer! Você tem 15 segundos para enviar **hg.mat <resposta>**.")
 	"color" 3092790
 	"thumbnail" (sdict "url" "https://media.discordapp.net/attachments/785487026194874378/802148359678066699/giphy.gif")
 }}
-	{{if gt $randB $randA}}
-{{$c:= round (div $randB $randA)}}
-{{dbSetExpire .User.ID "math" $c 15}}
-{{$divembed.Set "description" (print "**Qual o resultado da operação " $randB " ÷ " $randA "?**\n\nIsso me parece grego " .User.Mention ", socorro! É muito difícil, será que você consegue resolver? Me ajuda, não sei o que fazer! Você tem 15 segundos para enviar **hg.mat <resposta>**.")}}
 {{$id:= sendMessageRetID nil (complexMessage "content" .User.Mention "embed" (cembed $divembed))}}
 {{deleteMessage nil $id 15}}
-	{{else if gt $randA $randB}}
-{{$c:= round (div $randA $randB)}}
-{{dbSetExpire .User.ID "math" $c 15}}
-{{$divembed.Set "description" (print "**Qual o resultado da operação " $randA " ÷ " $randB "?**\n\nIsso me parece grego " .User.Mention ", socorro! É muito difícil, será que você consegue resolver? Me ajuda, não sei o que fazer! Você tem 15 segundos para enviar **hg.mat <resposta>**.")}}
-{{$id:= sendMessageRetID nil (complexMessage "content" .User.Mention "embed" (cembed $divembed))}}
-{{deleteMessage nil $id 15}}	
-	{{end}}
 {{execCC .CCID nil 1 "0"}}
 {{end}}	
 {{end}}
