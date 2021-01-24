@@ -1,7 +1,7 @@
 {{$p:= toInt (dbGet .User.ID "mathpoint").Value}}
 {{$r:= sub 9 $p}}
 {{$accembed := sdict
-	"description" (print "Obrigada " .User.Mention ", você é incrível, lindo(a)! Minha mãe disse que a resposta está **correta**, já posso entregar a atividade na escola! Você sabia que com mais `" $r " acerto(s)` você aumenta sua experiência em 30 pontos? Me ajuda novamente? Pufavozinho?")
+	"description" (print "Obrigada " .User.Mention ", você é incrível, lindo(a)! Minha mãe disse que a resposta está **correta**, já posso entregar a atividade na escola! Você sabia que com mais `" $r " acerto(s)` você aumenta sua experiência em 20 pontos? Me ajuda novamente? Pufavozinho?")
 	"color" 3092790
 	"thumbnail" (sdict "url" "https://media.discordapp.net/attachments/785487026194874378/802148358093144074/giphy_3.gif")
 }}
@@ -12,12 +12,13 @@
 {{- if $args.IsSet 0}}
 
 {{if $cooldown:= (dbGet .User.ID "cooldownmath")}}
-{{$CDCembed := cembed
-"description" (print "<:gtcCansado:758029851281195168> | " (.Message.Author).Mention ", você me parece cansado, espera **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** para me ajudar novamente!")
-"color" 3092790
-}} 
-{{$msgCDC := sendMessageRetID nil $CDCembed}}
-{{deleteMessage nil $msgCDC 10}}
+	{{$cdembed := cembed
+		"description" (print "Yupii! Obrigada " (.Message.Author).Mention ", você me ajudou a terminar a tarefinha e agora estou brincando com o **Docinho**, volta daqui a **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** que eu te peço ajuda em outras operações! beijoss lindo(a)!")
+		"color" 3092790
+		"thumbnail" (sdict "url" "https://media.discordapp.net/attachments/785487026194874378/802859137012727808/giphy.gif")
+	}} 
+{{$mid := sendMessageRetID nil $cdembed}}
+{{deleteMessage nil $mid 10}}
 {{else}}
 
 {{$x:= ($args.Get 0)}}
@@ -34,9 +35,9 @@
 	{{dbDel .User.ID "math"}}
 	{{$f:= dbIncr .User.ID "mathall" 1}}
 		{{if eq $p 9}}
-			{{$b:= dbIncr .User.ID "exp" 30}}
+			{{$b:= dbIncr .User.ID "exp" 20}}
 			{{$k:= dbSet .User.ID "mathpoint" 0}}
-			{{dbSetExpire .User.ID "cooldownmath" "timer" 600}}
+			{{dbSetExpire .User.ID "cooldownmath" "timer" 300}}
 		{{end}}	
 	{{else}}
 	{{$cooldown:= dbGet .User.ID "math"}}

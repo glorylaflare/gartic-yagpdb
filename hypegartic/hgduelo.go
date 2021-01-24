@@ -107,7 +107,7 @@
 			{{ else if gt $nxp 0}}
 			{{ $sxp := dbSet $target.ID "exp" $nxp }}
 			{{end}}
-		{{ $ytxt := cslice ":smiling_face_with_tear: | Parece que o(a) <@%d> não treinou o suficiente para bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> falhou miseravelmente ao tentar bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> não aguentou a pressão contra <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> caiu que nem bosta para <@%d> e perdeu **5** pontos de experiência."}}
+		{{ $ytxt := cslice ":smiling_face_with_tear: | Parece que <@%d> não treinou o suficiente para bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> falhou miseravelmente ao tentar bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> não aguentou a pressão contra <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> caiu que nem bosta para <@%d> e perdeu **5** pontos de experiência."}}
 		{{ $ltext := (index (shuffle $ytxt) 0)}}
 		{{ $lembed := cembed
 		"description" (printf $ltext 
