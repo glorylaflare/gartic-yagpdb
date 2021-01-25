@@ -86,7 +86,7 @@
 	{{ $data.Set .Target $target }}
 
 	{{ if not $target.HP }}
-		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro no chão e ganhou **15** pontos de experiência."}}
+		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro(a) no chão e ganhou **15** pontos de experiência."}}
 		{{ $wtext := (index (shuffle $xtxt) 0)}}
 				{{ $msgs = $msgs.Append (printf "<:WD:797936075363844186> **%s** venceu!" $attacker.Name) }}
 		{{ if eq $attacker.ID $userB.ID}}
