@@ -2,22 +2,22 @@
 "https://i.ibb.co/bXvcP2D/2.gif"
 "https://i.ibb.co/4FR1MMp/3.gif"
 "https://i.ibb.co/7ys6ST2/4.gif"
-"https://i.ibb.co/fvKF5d2/5.gif"
 "https://i.ibb.co/Fw1DqXk/6.gif"
-"https://i.ibb.co/dBFw0gX/7.gif"
-"https://i.ibb.co/JqpL9VJ/8.gif"
-"https://i.ibb.co/DpM9Cv6/9.gif"
-"https://i.ibb.co/BfqwCJn/10.gif"
 "https://i.ibb.co/vwtWJny/11.gif"
-"https://i.ibb.co/DLGCxym/12.gif"
-"https://i.ibb.co/8ckb0zG/13.gif"
-"https://i.ibb.co/xjZY0Rb/14.gif"
 "https://i.ibb.co/9VQftRR/15.gif"
-"https://i.ibb.co/gRRGzhK/16.gif"
-"https://i.ibb.co/Zm49p10/17.gif"
 "https://i.ibb.co/gTqYTgL/18.gif"
 "https://i.ibb.co/LgPmpRR/19.gif"
-"https://i.ibb.co/WfmRV82/20.gif"}}
+"https://i.ibb.co/WfmRV82/20.gif"
+"https://i.ibb.co/mXPNzLZ/21.gif"
+"https://i.ibb.co/pvHXhTZ/22.gif"
+"https://i.ibb.co/NnD9NmS/23.gif"
+"https://i.ibb.co/xX9k6sR/24.gif"
+"https://i.ibb.co/X822GPT/25.gif"
+"https://i.ibb.co/GTP40Gv/26.gif"
+"https://i.ibb.co/Pt675BX/27.gif"
+"https://i.ibb.co/K2hrg6F/28.gif"
+"https://i.ibb.co/hyC8n1m/29.gif"
+"https://i.ibb.co/y4RKLrQ/30.gif"}}
 {{ $rimg := (index (shuffle $listimg) 0)}}
 
 {{ $channels := cslice 745296029406199819 788165603034660904 487385659137458176 790922403660038184 791341526528557096 793500422647709787 788514541692125204 }}
@@ -86,7 +86,7 @@
 	{{ $data.Set .Target $target }}
 
 	{{ if not $target.HP }}
-		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro(a) no chão e ganhou **15** pontos de experiência."}}
+		{{ $xtxt := cslice ":star_struck: | <@%d> surrou lindamente <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu sem dó em <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> acertou bem no nariz de <@%d> e ganhou **15** pontos de experiência." ":star_struck: | <@%d> bateu tão forte que deixou <@%d> duro(a) no chão e ganhou **15** pontos de experiência." ":star_struck: | <@%d> melou as calças mas derrotou <@%d> com muita sorte e ganhou **15** pontos de experiência." ":star_struck: | <@%d> fez <@%d> cuspir até as tripas do tanto que apanhou e ganhou **15** pontos de experiência." ":star_struck: | <@%d> mostrou toda sua força para derrotar <@%d> com um golpe fatal e ganhou **15** pontos de experiência."}}
 		{{ $wtext := (index (shuffle $xtxt) 0)}}
 				{{ $msgs = $msgs.Append (printf "<:WD:797936075363844186> **%s** venceu!" $attacker.Name) }}
 		{{ if eq $attacker.ID $userB.ID}}
@@ -107,7 +107,7 @@
 			{{ else if gt $nxp 0}}
 			{{ $sxp := dbSet $target.ID "exp" $nxp }}
 			{{end}}
-		{{ $ytxt := cslice ":smiling_face_with_tear: | Parece que <@%d> não treinou o suficiente para bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> falhou miseravelmente ao tentar bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> não aguentou a pressão contra <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> caiu que nem bosta para <@%d> e perdeu **5** pontos de experiência."}}
+		{{ $ytxt := cslice ":smiling_face_with_tear: | Parece que <@%d> não treinou o suficiente para bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> falhou miseravelmente ao tentar bater em <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> não aguentou a pressão contra <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> caiu que nem bosta para <@%d> e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> tomou uma pisa e teve que pedir arrego para <@%d> deixar de bater e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> apanhou demais para <@%d> que teve que sair de maca para um hospital e perdeu **5** pontos de experiência." ":smiling_face_with_tear: | <@%d> saiu correndo e foi chorar no colinho da mamãe depois de apanhar de <@%d> então perdeu **5** pontos de experiência."}}
 		{{ $ltext := (index (shuffle $ytxt) 0)}}
 		{{ $lembed := cembed
 		"description" (printf $ltext 

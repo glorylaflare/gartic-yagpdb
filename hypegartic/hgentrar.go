@@ -4,14 +4,26 @@
 {{$delay := 3}}
 
 {{deleteTrigger 0}}
-{{ if $cooldown := (dbGet .User.ID "cooldownsair") }}
-{{ $CDCembed := cembed
-"description" (print "🛑 | Calma ai " (.Message.Author).Mention "! Agora você precisa esperar **" (humanizeDurationSeconds (toDuration (($cooldown.ExpiresAt).Sub currentTime))) "** para trocar novamente de equipe!")
-"color" 3092790
-}} 
-{{ $msgCDC := sendMessageNoEscapeRetID nil $CDCembed }}
-{{ deleteMessage nil $msgCDC 10 }}
+{{$cooldownsair:= (dbGet .User.ID "cooldownsair")}}
+{{$cooldownentrar:= (dbGet .User.ID "cooldownentrar")}}
+{{ if or $cooldownsair $cooldownentrar}}
+	{{if $cooldownsair}}
+		{{ $cdsembed := cembed
+		"description" (print "🛑 | Calma ai " (.Message.Author).Mention "! Agora você precisa esperar **" (humanizeDurationSeconds (toDuration (($cooldownsair.ExpiresAt).Sub currentTime))) "** para trocar novamente de equipe!")
+		"color" 3092790
+		}} 
+		{{ $msgid := sendMessageNoEscapeRetID nil $cdsembed }}
+		{{ deleteMessage nil $msgid 10 }}
+	{{else if $cooldownentrar}}
+	{{ $cdeembed := cembed
+		"description" (print "🛑 | Calma ai " (.Message.Author).Mention "! Você entrou em uma equipe recentemente e agora precisa esperar **" (humanizeDurationSeconds (toDuration (($cooldownentrar.ExpiresAt).Sub currentTime))) "** para tentar novamente!")
+		"color" 3092790
+		}} 
+		{{ $msgid := sendMessageNoEscapeRetID nil $cdeembed }}
+		{{ deleteMessage nil $msgid 10 }}
+	{{end}}
 {{else}}
+{{dbSetExpire .User.ID "cooldownentrar" "timer" 604800}}
 {{ $HGE1embed := cembed
 "description" (joinStr "" "<a:ahg:785527890368266291> **HYPESQUAD DO GARTIC**\n\nBem-vindo(a) " (.Message.Author).Mention ", estou aqui para ler a sua mente e falar um pouco sobre suas características pessoais, assim te indico uma equipe do HypeGartic para você fazer parte...")
 "color" 3092790
