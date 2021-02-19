@@ -17,6 +17,7 @@
 {{ deleteMessage nil $msgCDC 10 }}
 {{else}}
 {{dbSetExpire .User.ID "cooldownsair" "timer" 604800}}
+{{dbSetExpire .User.ID "cooldownentrar" "timer" 604800}}
 {{ $REPembed := cembed
 	"description" (joinStr "" "<a:ahg:785527890368266291> **HYPESQUAD DO GARTIC**\n\nOlá " (.Message.Author).Mention ", então você quer que eu leia novamente a sua mente, se concentre desta vez, certo? E la vamos nós, irei te indicar uma nova equipe no HypeGartic...") 
 	"color" 3092790

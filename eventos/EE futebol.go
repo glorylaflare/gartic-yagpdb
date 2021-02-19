@@ -3,7 +3,7 @@
 {{$msg := (print $.User.Mention ", O tempo acabou, envie a próxima imagem ou exclua o histórico.")}}
  
 {{$args := parseArgs 1 ""
-(carg "string" "Link")
+(carg "string" "link")
 (carg "string" "resposta")
 (carg "string" "pontuação")
 }}
@@ -28,19 +28,19 @@
 {{sleep 15}}
 {{sendMessage nil $msg}}
 {{if not (dbGet 0 "resposta")}}
-{{ $page := 1 }}
-{{ $skip := mult (sub $page 1) 10 }} 
-{{ $users:= dbTopEntries "pontos" 10 $skip }}
-{{ $rank := $skip }} 
-{{ $display := "" }}
+{{$page := 1}}
+{{$skip := mult (sub $page 1) 10}} 
+{{$users:= dbTopEntries "pontos" 10 $skip}}
+{{$rank := $skip}} 
+{{$display := ""}}
 {{ range $users }}
-	{{- $xp := toInt .Value }} 
-	{{- $rank = add $rank 1 }} 
+	{{- $xp := toInt .Value}} 
+	{{- $rank = add $rank 1}} 
 	{{- $display = printf "%s \n`%d.` %s possui **%d** pontos."
 		$display $rank .User.Mention $xp
 	}} 
-{{ end }}
-{{ $TOPembed := cembed
+{{end}}
+{{$TOPembed := cembed
 	"title" ":trophy: RANK"
 	"color" 15321644
 	"description" $display

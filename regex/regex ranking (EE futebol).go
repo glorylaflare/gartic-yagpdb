@@ -1,12 +1,20 @@
 {{$r:= .Message.Content}}
-{{$pt:= (toInt (dbGet 0 "pt").Value)}}
+{{$c:= 812361680600039434}}
 
 {{if (dbGet 0 "resposta")}}
-{{if (reFind ((dbGet 0 "resposta").Value) (lower $r))}}
-{{addReactions "⚽"}}
-{{$s:= dbIncr .User.ID "pontos" $pt}}
-{{dbDel 0 "resposta"}}
-{{.User.Mention}} chutou e marcou um golaço!
-{{end}}
+{{$embed:= cembed
+	"description" (print .User.Mention " enviou uma resposta `" .Message.Content "`.")
+	"color" 3092790
+}}
+{{sendMessageNoEscape $c $embed}}
+	{{if (reFind ((print "^" (dbGet 0 "resposta").Value "$")) (lower $r))}}
+	{{addReactions "⭐"}}
+	{{$s:= dbIncr .User.ID "pontos" 1}}
+	{{giveRoleID .User.ID 811286978015526942}}
+	{{dbDel 0 "resposta"}}
+	{{.User.Mention}} acertou a resposta!
+	{{else}}
+	{{deleteTrigger 0}}
+	{{end}}
 {{else}}
 {{end}}
