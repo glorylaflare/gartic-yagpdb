@@ -1,63 +1,28 @@
 {{$mc:= .Message.Content}}
+{{$edb:= toInt (dbGet .User.ID "ccid").Value}}
 
 {{$embed:= sdict
 	"color" 3092790
 	"thumbnail" (sdict "url" "https://media.discordapp.net/attachments/785487026194874378/802148358093144074/giphy_3.gif")
 }}
 
-{{if (dbGet .User.ID "flagresp")}}
-	{{if (reFind ((dbGet .User.ID "flagresp").Value) (lower $mc))}}
-	{{$p:= toInt (dbGet .User.ID "flagpoint").Value}}
-		{{$r:= sub 14 $p}}
-		{{$embed.Set "description" (print "Obrigada " .User.Mention ", você é incrível, lindo(a)! Minha mãe disse que a resposta está **correta**, já posso entregar a atividade na escola! Você sabia que com mais `" $r " acerto(s)` você aumenta sua experiência em 20 pontos? Me ajuda novamente? Pufavozinho?")}}
+{{if (dbGet .User.ID "gartic_edu")}}
+	{{if (reFind ((print "^" (dbGet .User.ID "gartic_edu").Value "$")) (lower $mc))}}
+	{{$p:= toInt (dbGet .User.ID "edu_point").Value}}
+		{{$r:= sub 24 $p}}
+		{{$embed.Set "description" (print "Obrigada " .User.Mention ", você é incrível, lindo(a)! Minha mãe disse que a resposta está **CORRETA**, já posso entregar a atividade na escola! Se você me ajudar com mais **" $r " acerto(s)** te dou alguns prêmios! Me ajuda novamente? Pufavozinho?")}}
 	{{$id:= sendMessageRetID nil (complexMessage "content" .User.Mention "embed" (cembed $embed))}}
 	{{deleteMessage nil $id 10}}
-	{{$a:= dbIncr .User.ID "flagpoint" 1}}
-	{{dbDel .User.ID "flagresp"}}
-	{{$f:= dbIncr .User.ID "flagall" 1}}
-		{{if eq $p 14}}
-			{{$b:= dbIncr .User.ID "exp" 20}}
-			{{$k:= dbSet .User.ID "flagpoint" 0}}
-			{{dbSetExpire .User.ID "cooldownflag" "timer" 300}}
-		{{end}}	
-	{{else}}
-	{{end}}
-{{end}}
-
-{{if (dbGet .User.ID "math")}}
-	{{$rr:= (dbGet .User.ID "math").Value}}
-	{{if eq (toInt $mc) (toInt $rr)}}
-	{{$p:= toInt (dbGet .User.ID "mathpoint").Value}}
-		{{$r:= sub 9 $p}}
-		{{$embed.Set "description" (print "Obrigada " .User.Mention ", você é incrível, lindo(a)! Minha mãe disse que a resposta está **correta**, já posso entregar a atividade na escola! Você sabia que com mais `" $r " acerto(s)` você aumenta sua experiência em 20 pontos? Me ajuda novamente? Pufavozinho?")}}
-	{{$id:= sendMessageRetID nil (complexMessage "content" .User.Mention "embed" (cembed $embed))}}
-	{{deleteMessage nil $id 10}}
-	{{$a:= dbIncr .User.ID "mathpoint" 1}}
-	{{dbDel .User.ID "math"}}
-	{{$f:= dbIncr .User.ID "mathall" 1}}
-		{{if eq $p 9}}
-			{{$b:= dbIncr .User.ID "exp" 20}}
-			{{$k:= dbSet .User.ID "mathpoint" 0}}
-			{{dbSetExpire .User.ID "cooldownmath" "timer" 300}}
-		{{end}}	
-	{{else}}
-	{{end}}
-{{end}}
-
-{{if (dbGet .User.ID "qmcresp")}}
-	{{if (reFind ((dbGet .User.ID "qmcresp").Value) (lower $mc))}}
-	{{$p:= toInt (dbGet .User.ID "qmcpoint").Value}}
-		{{$r:= sub 9 $p}}
-		{{$embed.Set "description" (print "Obrigada " .User.Mention ", você é incrível, lindo(a)! Minha mãe disse que a resposta está **correta**, já posso entregar a atividade na escola! Você sabia que com mais `" $r " acerto(s)` você aumenta sua experiência em 20 pontos? Me ajuda novamente? Pufavozinho?")}}		
-	{{$id:= sendMessageRetID nil (complexMessage "content" .User.Mention "embed" (cembed $embed))}}
-	{{deleteMessage nil $id 10}}
-	{{$a:= dbIncr .User.ID "qmcpoint" 1}}
-	{{dbDel .User.ID "qmcresp"}}
-	{{$f:= dbIncr .User.ID "qmcall" 1}}
-		{{if eq $p 9}}
-			{{$b:= dbIncr .User.ID "exp" 20}}
-			{{$k:= dbSet .User.ID "qmcpoint" 0}}
-			{{dbSetExpire .User.ID "cooldownqmc" "timer" 300}}
+	{{$a:= dbIncr .User.ID "edu_point" 1}}
+	{{dbDel .User.ID "gartic_edu"}}
+	{{$f:= dbIncr .User.ID "edu_all" 1}}
+		{{if eq $p 24}}
+			{{dbSetExpire .User.ID "cooldownlaura" "timer" 300}}
+			{{$edupt:= dbSet .User.ID "edu_point" 0}}
+				{{sendMessage 812728335557066762 (print "gb.addgarticos 25 <@" (.Message.Author).ID ">")}}
+			{{execCC 420 .Channel.ID 1 0}}
+		{{else}}
+			{{execCC $edb .Channel.ID 3 0}}
 		{{end}}
 	{{else}}
 	{{end}}
