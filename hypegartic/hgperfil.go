@@ -13,6 +13,8 @@
 {{ if and $valid $u }}
 {{ $user := (userArg (index .Args 1))}}
 {{ $getMember := (getMember $user.ID)}}
+{{ $duel := toInt (dbGet $user.ID "win_duel").Value}}
+{{ $InfoDuel := toInt (dbGet $user.ID "play_duel").Value}}
 {{ $cap := (print (dbGet $user.ID "rodape").Key) }}
 {{ $ck := toInt (dbGet $user.ID "rep").Value }}
 {{ $exp := toInt (dbGet $user.ID "exp").Value}}
@@ -33,8 +35,12 @@
 {{$flag = 0}} 
 {{ $PYembed := cembed
 "author" $authorB	
-"description" (print $team " " $elo "<:ck:786958781790814278> " $ck "**")
+"description" (print $team " " $elo "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PYembed)}}
@@ -51,8 +57,12 @@
 {{$flag = 0}} 
 {{ $PNembed := cembed
 "author" $authorB	
-"description" (print $team " <:ck:786958781790814278> " $ck "**")
+"description" (print $team "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PNembed)}}
@@ -73,8 +83,12 @@
 {{$flag = 0}} 
 {{ $PYembed := cembed
 "author" $authorB	
-"description" (print $team " " $elo "<:ck:786958781790814278> " $ck "**")
+"description" (print $team " " $elo "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PYembed)}}
@@ -91,8 +105,12 @@
 {{$flag = 0}} 
 {{ $PNembed := cembed
 "author" $authorB	
-"description" (print $team " <:ck:786958781790814278> " $ck "**")
+"description" (print $team "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PNembed)}}
@@ -104,6 +122,8 @@
 
 {{else}}
 
+{{ $duel := toInt (dbGet .User.ID "win_duel").Value}}
+{{ $InfoDuel := toInt (dbGet .User.ID "play_duel").Value}}
 {{ $ck := toInt (dbGet .User.ID "rep").Value }}
 {{ $exp := toInt (dbGet .User.ID "exp").Value}}
 {{ $lvl := (toInt (roundFloor (mult 0.4 (sqrt $exp)))) }}
@@ -124,8 +144,12 @@
 {{$flag = 0}} 
 {{ $PYembed := cembed
 "author" $authorA	
-"description" (print $team " " $elo "<:ck:786958781790814278> " $ck "**")
+"description" (print $team " " $elo "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PYembed)}}
@@ -142,8 +166,12 @@
 {{$flag = 0}} 
 {{ $PNembed := cembed
 "author" $authorA	
-"description" (print $team " <:ck:786958781790814278> " $ck "**")
+"description" (print $team "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PNembed)}}
@@ -164,8 +192,12 @@
 {{$flag = 0}} 
 {{ $PYembed := cembed
 "author" $authorA	
-"description" (print $team " " $elo "<:ck:786958781790814278> " $ck "**")
+"description" (print $team " " $elo "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PYembed)}}
@@ -182,8 +214,12 @@
 {{$flag = 0}} 
 {{ $PNembed := cembed
 "author" $authorA	
-"description" (print $team " <:ck:786958781790814278> " $ck "**")
+"description" (print $team "\n\nStats:")
 "color" 3092790
+"fields" (cslice 
+	(sdict "name" "Duelos" "value" (print "<:DR:880633405707022356> `" $duel "/" $InfoDuel "`") "inline" true)
+	(sdict "name" "Reputações" "value" (print "<:CR:880633405748940800> `" $ck "`") "inline" true)
+)
 "image"  (sdict "url" $rdp)
 }}
 {{sendMessage nil (complexMessage "content" $ma "embed" $PNembed)}}
