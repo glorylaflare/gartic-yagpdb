@@ -17,11 +17,11 @@
 		}} 
 	{{end}}
 
-{{$txt := "Confira a lista abaixo:"}}
+{{$txt := "Já ajudou a Laura hoje?"}}
 {{$author := (.Message.Author).Mention}}
 {{$TOPembed := cembed
-		"author" (sdict "name" "RANKING DA LAURA" "url" "" "icon_url" "https://cdn.discordapp.com/attachments/785487026194874378/883052205274447952/woman.png")
-		"color" 16303420
+		"title" "👧🏼 Ranking de ajudas da Laura"
+		"color" 2738826
 		"description" (print $txt "\n" $display)
 		"image" (sdict "url" "https://media.discordapp.net/attachments/764241961154117722/787015437736869908/garticlogo.png")
 		"footer" (sdict "text" (joinStr "" "Página " $page " • Digite hg.laura <número da página> para ir à página desejável."))
